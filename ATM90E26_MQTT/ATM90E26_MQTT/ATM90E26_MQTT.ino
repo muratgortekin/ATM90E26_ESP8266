@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const char* ssid = "G_R_T_K_N";
-const char* password =  "2016110035FAKIRMUHENDISSS";
+const char* ssid = "xxxxxxx";
+const char* password =  "xxxxxxxxx";
 
-const char* mqttServer = "159.89.179.5";
+const char* mqttServer = "xxxxxxxx";
 const int mqttPort = 1883;
 const char* mqttUser = "YourMqttUser";
 const char* mqttPassword = "YourMqttUserPassword";
@@ -112,11 +112,11 @@ void loop() {
   if(s_status == 0xFFFF)
   {
 	#if defined(ESP8266)
-     client.publish("OKUMA", "0");
+     client.publish("READ", "0");
     ESP.restart();
 	#endif
   }
-  else{client.publish("OKUMA", "1");}
+  else{client.publish("READ", "1");}
   
   //Serial.println(eic.GetSysStatus(),HEX);
   //delay(10);
@@ -126,24 +126,24 @@ void loop() {
   
   #if defined(ESP32)
   sprintf(buffer, "%f", eic.GetLineVoltage());
-  client.publish("Voltaj",buffer );
+  client.publish("VOLTAGE",buffer );
   #else
   sprintf(buffer, "%f", eic.GetLineVoltage());
-  client.publish("Voltaj",buffer );
+  client.publish("VOLTAGE",buffer );
   #endif
   delay(10);
   #if defined(ESP32)
   sprintf(buffer, "%f", eic.GetLineCurrent());
-  client.publish("Akim",buffer );
+  client.publish("CURRENT",buffer );
   #else
   sprintf(buffer, "%f", eic.GetLineCurrent());
-  client.publish("Akim",buffer );
+  client.publish("CURRENT",buffer );
   #endif
   delay(10);
   sprintf(buffer, "%f", eic.GetActivePower());
-  client.publish("AktifGuc",buffer );
+  client.publish("AP",buffer );
   delay(10);
   sprintf(buffer, "%f", eic.GetPowerFactor());
-  client.publish("GucFaktoru",buffer );
+  client.publish("PF",buffer );
   delay(1000);
 }
